@@ -1,0 +1,73 @@
+import serial
+import base64
+import time
+import serial
+ard=serial.Serial("com5",1200)
+time.sleep(10)
+i=0
+
+data =""
+                                      
+ #read till we get starting signal
+def readImg():
+    global data
+    while 1:
+        c = ard.read(1)
+        print c
+        if c==":":
+            return 1
+        data += c
+while True:
+    c = ard.read(1)
+    if c=="a":
+        c=ard.read(1)
+        if c=="b":
+            c=ard.read(1)
+            if c =="c":
+                if readImg():
+                    break
+
+print "data read complete "
+
+f=open("recieve3.jpg" , "wb" )
+string_64_decode = base64.decodestring(data)
+f.write(string_64_decode )
+f.close()
+
+print "Image recieved"
+    
+##while(i<4):
+##    c = ard.read(1)
+##    data += c
+##    print c
+##    #setTempCar1=63
+##    ##setTempCar2=37
+##    #ard.flush()
+##    #print("python value sent:")
+##    #print(setTemp1)
+##    #arduino.write(setTemp1)
+##    #time.sleep(1)
+##
+##
+##    #msg=ard.read(ard.inWaiting())
+##    #print("Message from arduino:")
+##    #print(msg)
+##    #i=i+1
+##
+##else:
+##    print"exit"
+##    exit()
+##
+##
+##string_64_decode=base64.decodestring(string_read)
+##
+##filename="some_img.png"
+##with open(some_img.png,'wb'):
+##    for c in image_64_decode:
+##        ser.write(c)
+##
+##
+##
+##
+##    ser.close()
+##
