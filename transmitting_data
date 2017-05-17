@@ -1,0 +1,23 @@
+import base64
+import serial
+import time
+ser=serial.Serial("com4 ",1200,timeout=0)
+time.sleep(10)
+image=open('sp.jpg','rb')
+image_read=image.read()
+
+image_64_encode=base64.encodestring(image_read)
+print image_64_encode
+while 1:
+    print ser
+    print "sending serial data"
+    time.sleep(2)
+
+         
+    ser.write("hello")
+
+for c in image_64_encode:
+    ser.write(c)
+
+
+ser.close()
